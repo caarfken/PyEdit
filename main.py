@@ -59,11 +59,11 @@ def main(event=None):
     # Menubar
     menubar = Menu(root)
     filemenu = Menu(menubar, tearoff=0)
+    filemenu.add_command(label="New", command=main)
     filemenu.add_command(label="Open", command=open_file)
     filemenu.add_command(label="Save", command=save_file)
     filemenu.add_command(label="Save as...", command=save_file_as)
-    filemenu.add_command(label="Run", command=run_file)
-    filemenu.add_command(label="New", command=main)
+    filemenu.add_command(label="Run file", command=run_file)
     menubar.add_cascade(label="File", menu=filemenu)
     root.config(menu=menubar)
     # Set title
