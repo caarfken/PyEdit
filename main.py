@@ -6,6 +6,7 @@ from tkinter import messagebox
 import utils
 import subprocess
 def open_file(event=None):
+        # open file
         global contents
         global file
         contents, file = utils.open_file()
@@ -14,6 +15,7 @@ def open_file(event=None):
         titleLang = ""
         global command
         command = False
+        # check programming language
         for sect in langs:
             lang, newext, newcommand = sect.split(",")
             if newext == end_tuple[1]:
@@ -23,6 +25,7 @@ def open_file(event=None):
                 break
             else:
                 noLang = True
+        # set title
         if noLang:
             root.title(file.name + " - PyEdit")
         else:
