@@ -40,6 +40,10 @@ def main(event=None):
     name = ""
     ctrl_pressed = False
     file_opened = False
+    # Get theme
+    global theme
+    theme = open("theme.csv")
+    menuColor, edColor = theme.read().split(",")
     # Setup extensions
     langsFile = open("langs.csv")
     global langs
@@ -48,10 +52,6 @@ def main(event=None):
     global root
     root = Tk()
     global t
-    global edColor
-    global menuColor
-    menuColor = "#333333"
-    edColor = "#191717"
     t = Text(root, background=edColor, foreground="white")
     t.pack(expand=True, fill=BOTH)
     # Keybindings
@@ -79,6 +79,8 @@ def main(event=None):
         # Shut everything down
         file.close()
         langsFile.close()
+        theme.close()
         sys.exit()
+        
 if __name__ == "__main__":
     main()
