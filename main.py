@@ -48,7 +48,11 @@ def main(event=None):
     global root
     root = Tk()
     global t
-    t = Text(root)
+    global edColor
+    global menuColor
+    menuColor = "#333333"
+    edColor = "#191717"
+    t = Text(root, background=edColor, foreground="white")
     t.pack(expand=True, fill=BOTH)
     # Keybindings
     t.bind("<Control-s>", save_file)
@@ -57,7 +61,7 @@ def main(event=None):
     t.bind("<Control-r>", run_file)
     t.bind("<Control-n>", main)
     # Menubar
-    menubar = Menu(root)
+    menubar = Menu(root, background=menuColor, foreground="white", activebackground=edColor, activeforeground="white")
     filemenu = Menu(menubar, tearoff=0)
     filemenu.add_command(label="New", command=main)
     filemenu.add_command(label="Open", command=open_file)
