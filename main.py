@@ -1,6 +1,5 @@
 from tkinter import *
 import os
-print("hello")
 import sys
 from tkinter import messagebox
 import utils
@@ -40,7 +39,6 @@ def run_file(event=None):
     messagebox.showinfo("Output", subprocess.check_output([command.strip(), file.name]))
 
 def main(event=None):
-    print("hello")
     # Initialize variables
     name = ""
     ctrl_pressed = False
@@ -56,7 +54,6 @@ def main(event=None):
     # Start Tkinter
     global root
     root = Tk()
-    print("hello")
     global t
     t = Text(root, background=edColor, foreground="white")
     t.pack(expand=True, fill=BOTH)
@@ -67,7 +64,6 @@ def main(event=None):
     t.bind("<Control-r>", run_file)
     t.bind("<Control-n>", main)
     # Menubar
-    print("hello")
     menubar = Menu(root, background=menuColor, foreground="white", activebackground=edColor, activeforeground="white")
     filemenu = Menu(menubar, tearoff=0)
     filemenu.add_command(label="New", command=main)
@@ -78,7 +74,6 @@ def main(event=None):
     filemenu.add_command(label="Quit", command=sys.exit)
     menubar.add_cascade(label="File", menu=filemenu)
     root.config(menu=menubar)
-    print("hello")
     # Set title
     root.title("PyEdit")
     
