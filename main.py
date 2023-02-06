@@ -71,6 +71,7 @@ def main(event=None):
     filemenu.add_command(label="Save", command=save_file)
     filemenu.add_command(label="Save as...", command=save_file_as)
     filemenu.add_command(label="Run file", command=run_file)
+    filemenu.add_command(label="Quit", command=sys.exit())
     menubar.add_cascade(label="File", menu=filemenu)
     root.config(menu=menubar)
     # Set title
