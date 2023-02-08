@@ -37,8 +37,9 @@ jobs:
       # Build python script into a stand-alone exe
       - uses: Nuitka/Nuitka-Action@v0.4
         with:
-          script-name: kasa_cli
+          script-name: PyScript
           onefile: true
+          enable-plugins: tk-inter
   
       # Uploads artifacts
       - name: "Upload Artifacts"
