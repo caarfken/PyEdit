@@ -34,7 +34,6 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          sudo apt-get install fuse2
       # Build python script into a stand-alone exe
       - uses: Nuitka/Nuitka-Action@v0.4
         with:
