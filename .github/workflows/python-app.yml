@@ -34,7 +34,6 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-      - name: Install fuse
       - if: matrix.os == 'ubuntu-latest'
         run: |
           apt install fuse
