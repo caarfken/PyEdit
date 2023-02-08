@@ -38,11 +38,11 @@ jobs:
       - uses: Nuitka/Nuitka-Action@v0.4
         with:
           script-name: PyEdit
-          onefile: false
+          onefile: true
           enable-plugins: tk-inter
   
       # Uploads artifacts
-      - name: "Upload Artifacts"
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ runner.os }} Build
