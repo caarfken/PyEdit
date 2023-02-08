@@ -37,7 +37,7 @@ jobs:
       # Build python script into a stand-alone exe
       - uses: Nuitka/Nuitka-Action@v0.4
         with:
-          script-name: PyScript
+          script-name: PyEdit
           onefile: false
           enable-plugins: tk-inter
   
