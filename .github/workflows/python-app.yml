@@ -38,7 +38,7 @@ jobs:
       - uses: Nuitka/Nuitka-Action@v0.4
         with:
           script-name: PyScript
-          onefile: true
+          onefile: false
           enable-plugins: tk-inter
   
       # Uploads artifacts
