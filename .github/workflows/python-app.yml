@@ -50,7 +50,8 @@ jobs:
       - uses: Nuitka/Nuitka-Action@v0.4
         with:
           script-name: PyEdit
-          onefile-tempdir: true
+          standalone: true
+          onefile: true
           enable-plugins: tk-inter
   
       # Uploads artifacts
