@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-11, ubuntu-latest, windows-latest]
       
     runs-on: ${{ matrix.os }}
     
@@ -43,7 +43,6 @@ jobs:
           tar -xzvf tk.tar.gz
           cd tk-0.1.0
           python3 setup.py install
-          python3 -m tkinter
 
       # Build python script into a stand-alone exe
       - uses: Nuitka/Nuitka-Action@v0.4
