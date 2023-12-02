@@ -38,14 +38,14 @@ def save_file_as(event=None):
 def run_file(event=None):
     messagebox.showinfo("Output", subprocess.check_output([command.strip(), file.name]))
 def themeChanger(theme):
-    activeTheme = open("~/activeTheme.conf", "w")
+    activeTheme = open("~/.PyEdit/PyEdit/PyEdit/activeTheme.conf", "w")
     activeTheme.write(theme)
     activeTheme.close()
     messagebox.showinfo("Theme Change", "Theme succesfully changed. This will not take effect until you restart the application")
 def darkTheme(event=None):
-    themeChanger("~/darkTheme.csv")
+    themeChanger("~/.PyEdit/PyEdit/PyEdit/darkTheme.csv")
 def lightTheme(event=None):
-    themeChanger("~/lightTheme.csv")
+    themeChanger("~/.PyEdit/PyEdit/PyEdit/lightTheme.csv")
 def customTheme(event=None):
     file = utils.get_open_dialog()
     themeChanger(file.name)
@@ -56,12 +56,12 @@ def main(event=None):
     ctrl_pressed = False
     file_opened = False
     # Get theme
-    themeName = open("~/activeTheme.conf")
+    themeName = open("~/.PyEdit/PyEdit/PyEdit/activeTheme.conf")
     global theme
     theme = open(themeName.read())
     menuColor, edColor, textColor = theme.read().split(",")
     # Setup extensions
-    langsFile = open("~/langs.csv")
+    langsFile = open("~/.PyEdit/PyEdit/PyEdit/langs.csv")
     global langs
     langs = langsFile.readlines()
     # Start Tkinter
