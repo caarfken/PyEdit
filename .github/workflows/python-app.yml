@@ -48,7 +48,7 @@ jobs:
           brew install tcl-tk
       - name: Compile
         run: |
-          pyinstaller --add-data PyEdit/activeTheme.conf --add-data PyEdit/darkTheme.csv --add-data PyEdit/lightTheme.csv PyEdit/main.py PyEdit/utils.py
+          pyinstaller --add-data=PyEdit/activeTheme.conf --add-data=PyEdit/darkTheme.csv --add-data=PyEdit/lightTheme.csv PyEdit/main.py PyEdit/utils.py
   
       # Uploads artifacts
       - name: Upload Artifacts
