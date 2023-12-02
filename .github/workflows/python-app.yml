@@ -34,6 +34,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
+          pip install pyinstaller
       - if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt install fuse
@@ -45,14 +46,9 @@ jobs:
           cd tk-0.1.0
           python3 setup.py install
           brew install tcl-tk
-
-      # Build python script into a stand-alone exe
-      - uses: Nuitka/Nuitka-Action@v0.4
-        with:
-          script-name: PyEdit
-          standalone: true
-          onefile: true
-          enable-plugins: tk-inter
+      - name: Compile
+        run: |
+          pyinstaller --add-data=PyEdit/activeTheme.conf --add-data=PyEdit/darkTheme.csv --add-data=PyEdit/lightTheme.csv PyEdit/main.py PyEdit/utils.py
   
       # Uploads artifacts
       - name: Upload Artifacts
