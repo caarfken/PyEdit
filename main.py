@@ -1,6 +1,5 @@
 from tkinter import *
 import os
-print("hello")
 import sys
 from tkinter import messagebox
 import utils
@@ -38,17 +37,29 @@ def save_file_as(event=None):
     utils.save_file_as(t.get("1.0", END))
 def run_file(event=None):
     messagebox.showinfo("Output", subprocess.check_output([command.strip(), file.name]))
+def themeChanger(theme):
+    activeTheme = open("activeTheme.conf", "w")
+    activeTheme.write(theme)
+    activeTheme.close()
+    messagebox.showinfo("Theme Change", "Theme succesfully changed. This will not take effect until you restart the application")
+def darkTheme(event=None):
+    themeChanger("darkTheme.csv")
+def lightTheme(event=None):
+    themeChanger("lightTheme.csv")
+def customTheme(event=None):
+    file = utils.get_open_dialog()
+    themeChanger(file.name)
 
 def main(event=None):
-    print("hello")
     # Initialize variables
     name = ""
     ctrl_pressed = False
     file_opened = False
     # Get theme
+    themeName = open("activeTheme.conf")
     global theme
-    theme = open("theme.csv")
-    menuColor, edColor = theme.read().split(",")
+    theme = open(themeName.read())
+    menuColor, edColor, textColor = theme.read().split(",")
     # Setup extensions
     langsFile = open("langs.csv")
     global langs
@@ -56,9 +67,8 @@ def main(event=None):
     # Start Tkinter
     global root
     root = Tk()
-    print("hello")
     global t
-    t = Text(root, background=edColor, foreground="white")
+    t = Text(root, background=edColor, foreground=textColor)
     t.pack(expand=True, fill=BOTH)
     # Keybindings
     t.bind("<Control-s>", save_file)
@@ -67,8 +77,7 @@ def main(event=None):
     t.bind("<Control-r>", run_file)
     t.bind("<Control-n>", main)
     # Menubar
-    print("hello")
-    menubar = Menu(root, background=menuColor, foreground="white", activebackground=edColor, activeforeground="white")
+    menubar = Menu(root, background=menuColor, foreground=textColor, activebackground=edColor, activeforeground="white")
     filemenu = Menu(menubar, tearoff=0)
     filemenu.add_command(label="New", command=main)
     filemenu.add_command(label="Open", command=open_file)
@@ -77,8 +86,13 @@ def main(event=None):
     filemenu.add_command(label="Run file", command=run_file)
     filemenu.add_command(label="Quit", command=sys.exit)
     menubar.add_cascade(label="File", menu=filemenu)
+    thememenu = Menu(menubar, tearoff=0)
+    thememenu.add_command(label="Dark Theme", command=darkTheme)
+    thememenu.add_command(label="Light Theme", command=lightTheme)
+    thememenu.add_command(label="Custom Theme", command=customTheme)
+    menubar.add_cascade(label="Themes", menu=thememenu)
+    
     root.config(menu=menubar)
-    print("hello")
     # Set title
     root.title("PyEdit")
     
@@ -89,6 +103,7 @@ def main(event=None):
         file.close()
         langsFile.close()
         theme.close()
+        themeName.close()
         sys.exit()
         
 if __name__ == "__main__":
