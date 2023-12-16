@@ -5,6 +5,17 @@ from tkinter import messagebox
 import utils
 import subprocess
 
+
+def find_data_file(filename):
+    if getattr(sys, "frozen", False):
+        # The application is frozen
+        datadir = os.path.dirname(sys.executable)
+    else:
+        # The application is not frozen
+        # Change this bit to match where you store your data files:
+        datadir = os.path.dirname("./")
+    return os.path.join(datadir, filename)
+
 def open_file(event=None):
         # open file
         global contents
@@ -38,14 +49,14 @@ def save_file_as(event=None):
 def run_file(event=None):
     messagebox.showinfo("Output", subprocess.check_output([command.strip(), file.name]))
 def themeChanger(theme):
-    activeTheme = open("~/.PyEdit/PyEdit/PyEdit/activeTheme.conf", "w")
+    activeTheme = open(find_data_file("activeTheme.conf"), "w")
     activeTheme.write(theme)
     activeTheme.close()
     messagebox.showinfo("Theme Change", "Theme succesfully changed. This will not take effect until you restart the application")
 def darkTheme(event=None):
-    themeChanger("~/.PyEdit/PyEdit/PyEdit/darkTheme.csv")
+    themeChanger(find_data_file("darkTheme.csv"))
 def lightTheme(event=None):
-    themeChanger("~/.PyEdit/PyEdit/PyEdit/lightTheme.csv")
+    themeChanger(find_data_file("lightTheme.csv"))
 def customTheme(event=None):
     file = utils.get_open_dialog()
     themeChanger(file.name)
@@ -56,12 +67,12 @@ def main(event=None):
     ctrl_pressed = False
     file_opened = False
     # Get theme
-    themeName = open("~/.PyEdit/PyEdit/PyEdit/activeTheme.conf")
+    themeName = open(find_data_file("activeTheme.conf"))
     global theme
     theme = open(themeName.read())
     menuColor, edColor, textColor = theme.read().split(",")
     # Setup extensions
-    langsFile = open("~/.PyEdit/PyEdit/PyEdit/langs.csv")
+    langsFile = open(find_data_file("langs.csv"))
     global langs
     langs = langsFile.readlines()
     # Start Tkinter
