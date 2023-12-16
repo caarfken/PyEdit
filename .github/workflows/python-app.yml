@@ -21,7 +21,7 @@ jobs:
     steps:
       # Check-out repository
       - uses: actions/checkout@v3
-      - uses: vimtor/action-zip@v1.1
+      
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -46,6 +46,7 @@ jobs:
         run: |
           cd PyEdit && cxfreeze -c main.py --target-dir dist --include-files=activeTheme.conf,darkTheme.csv,lightTheme.csv,langs.csv
       - name: Zip
+        uses: vimtor/action-zip@v1.1
         with:
           files: PyEdit/dist
   
