@@ -52,6 +52,4 @@ jobs:
         with:
           name: ${{ runner.os }} Build
           path: |
-            build/*.exe
-            build/*.bin
-            build/*.app/**/*
+            /PyEdit/dist
