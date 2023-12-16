@@ -45,10 +45,6 @@ jobs:
       - name: Compile
         run: |
           cd PyEdit && cxfreeze -c main.py --target-dir dist --include-files=activeTheme.conf,darkTheme.csv,lightTheme.csv,langs.csv
-      - name: Zip
-        uses: vimtor/action-zip@v1.1
-        with:
-          files: PyEdit/dist
   
       # Uploads artifacts
       - name: Upload Artifacts
@@ -56,4 +52,4 @@ jobs:
         with:
           name: ${{ runner.os }} Build
           path: |
-            result.zip
+            PyEdit/dist
