@@ -6,6 +6,20 @@ import utils
 import subprocess
 
 
+def popup(event):
+      try:
+        popupmenu.tk_popup(event.x_root, event.y_root, 0)
+      finally:
+        popupmenu.grab_release()
+
+def copy(event=None):
+    content = t.selection_get()
+    root.clipboard_clear()
+    root.clipboard_append(content)
+
+def paste(event=None):
+    t.insert('end', root.selection_get(selection='CLIPBOARD'))
+
 def confirm_quit():
     if saved == True:
         if messagebox.askokcancel("Quit", "Do you want to quit? You have previously saved your work."):
@@ -13,7 +27,10 @@ def confirm_quit():
         else:
             return
     if messagebox.askokcancel("Quit", "Do you want to quit? All work will be lost."):
-        root.destroy()
+        try:
+            root.destroy()
+        except:
+            sys.exit()
 
 def find_data_file(filename):
     '''This finds a data file if PyEdit has been frozen with cx_Freeze'''
@@ -110,7 +127,7 @@ def main(event=None):
     t.bind("<Control-n>", main)
     t.bind("<Control-q>", confirm_quit)
     # Menubar
-    menubar = Menu(root, background=menuColor, foreground=textColor, activebackground=edColor, activeforeground="white")
+    menubar = Menu(root, background=menuColor, foreground=textColor, activebackground=menuColor, activeforeground=textColor)
     filemenu = Menu(menubar, tearoff=0)
     filemenu.add_command(label="New", command=main)
     filemenu.add_command(label="Open", command=open_file)
@@ -126,6 +143,13 @@ def main(event=None):
     menubar.add_cascade(label="Themes", menu=thememenu)
     
     root.config(menu=menubar)
+    # Right-click menu
+    global popupmenu
+    popupmenu = Menu(root, background=menuColor, foreground=textColor, activebackground=menuColor, activeforeground=textColor, tearoff=0)
+    popupmenu.add_command(label="Copy", command=copy)
+    popupmenu.add_command(label="Paste", command=paste)
+    root.bind("<Button-3>", popup)
+    
     # Set title
     root.title("PyEdit")
     
