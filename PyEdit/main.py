@@ -16,6 +16,9 @@ def copy(event=None):
     root.event_generate("<<Copy>>")
 def paste(event=None):
     root.event_generate("<<Paste>>")
+def cut(event=None):
+    root.event_generate("<<Cut>>")
+
 
 def confirm_quit():
     if saved == True:
