@@ -21,12 +21,7 @@ def cut(event=None):
 
 
 def confirm_quit():
-    if saved == True:
-        if messagebox.askokcancel("Quit", "Do you want to quit? You have previously saved your work."):
-            root.destroy()
-        else:
-            return
-    if messagebox.askokcancel("Quit", "Do you want to quit? All work will be lost."):
+    if messagebox.askokcancel("Quit", "Do you want to quit? All unsaved work will be lost."):
         try:
             root.destroy()
         except:
@@ -129,16 +124,17 @@ def main(event=None):
     # Menubar
     menubar = Menu(root, background=menuColor, foreground=textColor, activebackground=menuColor, activeforeground=textColor)
     filemenu = Menu(menubar, tearoff=0)
-    filemenu.add_command(label="New", command=main)
-    filemenu.add_command(label="Open", command=open_file)
-    filemenu.add_command(label="Save", command=save_file)
-    filemenu.add_command(label="Save as...", command=save_file_as)
-    filemenu.add_command(label="Run file", command=run_file)
-    filemenu.add_command(label="Quit", command=confirm_quit)
+    filemenu.add_command(label="New", accelerator="Ctrl-N", command=main)
+    filemenu.add_command(label="Open", accelerator="Ctrl-O", command=open_file)
+    filemenu.add_command(label="Save", accelerator="Ctrl-S", command=save_file)
+    filemenu.add_command(label="Save as...", accelerator="Ctrl-Shift-S", command=save_file_as)
+    filemenu.add_command(label="Run file", accelerator="Ctrl-R", command=run_file)
+    filemenu.add_command(label="Quit", accelerator="Ctrl-Q", command=confirm_quit)
     menubar.add_cascade(label="File", menu=filemenu)
     editmenu = Menu(menubar, tearoff=0)
-    editmenu.add_command(label="Copy", command=copy)
-    editmenu.add_command(label="Paste", command=paste)
+    editmenu.add_command(label="Copy", accelerator="Ctrl-C", command=copy)
+    editmenu.add_command(label="Paste", accelerator="Ctrl-V", command=paste)
+    menubar.add_cascade(label="Edit", menu=editmenu)
     thememenu = Menu(menubar, tearoff=0)
     thememenu.add_command(label="Dark Theme", command=darkTheme)
     thememenu.add_command(label="Light Theme", command=lightTheme)
