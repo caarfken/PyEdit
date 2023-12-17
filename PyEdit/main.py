@@ -4,7 +4,18 @@ import sys
 from tkinter import messagebox
 import utils
 import subprocess
+from pynput.keyboard import Key, Controller, Listener
 
+
+def on_press(key):
+    try:
+        if key.char == "(":
+            autopresser.press(")")
+            autopresser.release(")")
+            autopresser.press(Key.left)
+            autopresser.release(Key.left)
+    except:
+        return
 
 def find_data_file(filename):
     if getattr(sys, "frozen", False):
@@ -62,6 +73,12 @@ def customTheme(event=None):
     themeChanger(file.name)
 
 def main(event=None):
+    global autopresser
+    autopresser = Controller()
+    listener = Listener(
+        on_press=on_press
+    )
+    listener.start()
     # Initialize variables
     name = ""
     ctrl_pressed = False
