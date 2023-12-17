@@ -13,12 +13,9 @@ def popup(event):
         popupmenu.grab_release()
 
 def copy(event=None):
-    content = t.selection_get()
-    root.clipboard_clear()
-    root.clipboard_append(content)
-
+    root.event_generate("<<Copy>>")
 def paste(event=None):
-    t.insert('end', root.selection_get(selection='CLIPBOARD'))
+    root.event_generate("<<Paste>>")
 
 def confirm_quit():
     if saved == True:
@@ -136,6 +133,9 @@ def main(event=None):
     filemenu.add_command(label="Run file", command=run_file)
     filemenu.add_command(label="Quit", command=confirm_quit)
     menubar.add_cascade(label="File", menu=filemenu)
+    editmenu = Menu(menubar, tearoff=0)
+    editmenu.add_command(label="Copy", command=copy)
+    editmenu.add_command(label="Paste", command=paste)
     thememenu = Menu(menubar, tearoff=0)
     thememenu.add_command(label="Dark Theme", command=darkTheme)
     thememenu.add_command(label="Light Theme", command=lightTheme)
