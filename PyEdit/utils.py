@@ -1,10 +1,13 @@
+from io import TextIOWrapper
 from tkinter import END, filedialog
 
-def get_save_as_dialog():
+def get_save_as_dialog() -> TextIOWrapper:
+    '''Opens a save as dialog, then returns the chosen file'''
     file = filedialog.asksaveasfilename()
     file = open(file, "w+")
     return file
 def save_file_as(contents):
+    '''Writes to chosen file'''
     file = get_save_as_dialog()
     file.write(contents)
     file.close()

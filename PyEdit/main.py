@@ -4,20 +4,19 @@ import sys
 from tkinter import messagebox
 import utils
 import subprocess
-from pynput.keyboard import Key, Controller, Listener
 
 
-def on_press(key):
-    try:
-        if key.char == "(":
-            autopresser.press(")")
-            autopresser.release(")")
-            autopresser.press(Key.left)
-            autopresser.release(Key.left)
-    except:
-        return
+def confirm_quit():
+    if saved == True:
+        if messagebox.askokcancel("Quit", "Do you want to quit? You have previously saved your work."):
+            root.destroy()
+        else:
+            return
+    if messagebox.askokcancel("Quit", "Do you want to quit? All work will be lost."):
+        root.destroy()
 
 def find_data_file(filename):
+    '''This finds a data file if PyEdit has been frozen with cx_Freeze'''
     if getattr(sys, "frozen", False):
         # The application is frozen
         datadir = os.path.dirname(sys.executable)
@@ -28,6 +27,7 @@ def find_data_file(filename):
     return os.path.join(datadir, filename)
 
 def open_file(event=None):
+        '''This opens a file in the editor'''
         # open file
         global contents
         global file
@@ -52,14 +52,19 @@ def open_file(event=None):
             root.title(file.name + " - PyEdit")
         else:
             root.title(file.name + " - " + titleLang + " - PyEdit")
+        t.delete('1.0', END)
         t.insert('1.0', contents)
 def save_file(event=None):
-    utils.save_file(t, file)
+    try:
+        utils.save_file(t, file)
+    except: save_file_as()
+    finally: saved = True
 def save_file_as(event=None):
     utils.save_file_as(t.get("1.0", END))
 def run_file(event=None):
     messagebox.showinfo("Output", subprocess.check_output([command.strip(), file.name]))
 def themeChanger(theme):
+    '''This changes the theme. Called by darkTheme, lightTheme, and customTheme'''
     activeTheme = open(find_data_file("activeTheme.conf"), "w")
     activeTheme.write(theme)
     activeTheme.close()
@@ -73,16 +78,13 @@ def customTheme(event=None):
     themeChanger(file.name)
 
 def main(event=None):
-    global autopresser
-    autopresser = Controller()
-    listener = Listener(
-        on_press=on_press
-    )
-    listener.start()
+    '''The main function'''
     # Initialize variables
+    global saved
     name = ""
     ctrl_pressed = False
     file_opened = False
+    saved = False
     # Get theme
     themeName = open(find_data_file("activeTheme.conf"))
     global theme
@@ -98,12 +100,15 @@ def main(event=None):
     global t
     t = Text(root, background=edColor, foreground=textColor)
     t.pack(expand=True, fill=BOTH)
+    # Handle window being closed
+    root.protocol("WM_DELETE_WINDOW", confirm_quit)
     # Keybindings
     t.bind("<Control-s>", save_file)
     t.bind("<Control-S>", save_file_as)
     t.bind("<Control-o>", open_file)
     t.bind("<Control-r>", run_file)
     t.bind("<Control-n>", main)
+    t.bind("<Control-q>", confirm_quit)
     # Menubar
     menubar = Menu(root, background=menuColor, foreground=textColor, activebackground=edColor, activeforeground="white")
     filemenu = Menu(menubar, tearoff=0)
@@ -112,7 +117,7 @@ def main(event=None):
     filemenu.add_command(label="Save", command=save_file)
     filemenu.add_command(label="Save as...", command=save_file_as)
     filemenu.add_command(label="Run file", command=run_file)
-    filemenu.add_command(label="Quit", command=sys.exit)
+    filemenu.add_command(label="Quit", command=confirm_quit)
     menubar.add_cascade(label="File", menu=filemenu)
     thememenu = Menu(menubar, tearoff=0)
     thememenu.add_command(label="Dark Theme", command=darkTheme)
