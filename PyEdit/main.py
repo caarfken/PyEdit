@@ -13,11 +13,11 @@ def popup(event):
         popupmenu.grab_release()
 
 def copy(event=None):
-    root.event_generate("<<Copy>>")
+    root.event_generate("<Control-c>")
 def paste(event=None):
-    root.event_generate("<<Paste>>")
+    root.event_generate("<Control-v>")
 def cut(event=None):
-    root.event_generate("<<Cut>>")
+    root.event_generate("<Control-x>")
 
 
 def confirm_quit():
@@ -132,6 +132,7 @@ def main(event=None):
     filemenu.add_command(label="Quit", accelerator="Ctrl-Q", command=confirm_quit)
     menubar.add_cascade(label="File", menu=filemenu)
     editmenu = Menu(menubar, tearoff=0)
+    editmenu.add_command(label="Cut", accelerator="Ctrl-X", command=cut)
     editmenu.add_command(label="Copy", accelerator="Ctrl-C", command=copy)
     editmenu.add_command(label="Paste", accelerator="Ctrl-V", command=paste)
     menubar.add_cascade(label="Edit", menu=editmenu)
@@ -145,6 +146,7 @@ def main(event=None):
     # Right-click menu
     global popupmenu
     popupmenu = Menu(root, background=menuColor, foreground=textColor, activebackground=menuColor, activeforeground=textColor, tearoff=0)
+    popupmenu.add_command(label="Cut", command=cut)
     popupmenu.add_command(label="Copy", command=copy)
     popupmenu.add_command(label="Paste", command=paste)
     root.bind("<Button-3>", popup)
