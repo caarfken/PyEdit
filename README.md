@@ -1,7 +1,7 @@
 # PyEdit
 ## A text editor written in Python
 
-PyEdit is a simple Tkinter-based text editor designed for programming in rapid development.
+PyEdit is a simple Tkinter-based text editor designed for programming.
 
 ## Installation
 ### Important! Do not move any of the files individually. You will have to redownload if you do so.
