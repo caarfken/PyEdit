@@ -6,7 +6,7 @@ PyEdit is a simple Tkinter-based text editor designed for programming in rapid d
 ## Installation
 ### Important! Do not move any of the files individually. You will have to redownload if you do so.
 
-Go to [github.com/caarfken/PyEdit/releases/latest](https://github.com/caarfken/PyEdit/releases/latest) and click on the file for your operating system (for example, Linux Build) and wait for the download to complete. Unzip the downloaded file into a new folder and enter the folder.
+Go to [github.com/caarfken/PyEdit/releases/latest](https://github.com/caarfken/PyEdit/releases/latest) and click on the file for your operating system (for example, Linux Build) and wait for the download to complete. Unzip the downloaded files into a new folder and enter the folder.
 ### Linux
 Make "main" executable and it is now installed portably! Just double-click to run.
 ### Mac & Windows
