@@ -140,8 +140,10 @@ def main(event=None):
     # Start Tkinter
     global root
     root = Tk()
+    
+    # Setup text input
     global t
-    t = Text(root, background=edColor, foreground=textColor)
+    t = Text(root, background=edColor, foreground=textColor, insertbackground=textColor)
     t.pack(expand=True, fill=BOTH)
     
     
