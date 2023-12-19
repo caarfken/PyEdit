@@ -6,6 +6,11 @@ import utils
 import subprocess
 
 
+def toggle_fullscreen(event=None):
+    global fullscreen
+    fullscreen = not fullscreen
+    root.attributes("-fullscreen", fullscreen)
+
 def popup(event):
       try:
         popupmenu.tk_popup(event.x_root, event.y_root, 0)
@@ -101,12 +106,9 @@ def customTheme(event=None):
 def main(event=None):
     '''The main function'''
     # Initialize variables
-    global saved
+    global fullscreen
     name = ""
-    ctrl_pressed = False
-    file_opened = False
-    saved = False
-    
+    fullscreen = False
     
     
     # Get theme
@@ -134,6 +136,7 @@ def main(event=None):
     root.protocol("WM_DELETE_WINDOW", confirm_quit)
     
     # Keybindings
+    t.bind("<F11>", toggle_fullscreen)
     t.bind("<Control-s>", save_file)
     t.bind("<Control-S>", save_file_as)
     t.bind("<Control-o>", open_file)
@@ -147,30 +150,36 @@ def main(event=None):
     
     filemenu = Menu(menubar, tearoff=0)
     
-    filemenu.add_command(label="New", accelerator="Ctrl-N", command=main)
-    filemenu.add_command(label="Open", accelerator="Ctrl-O", command=open_file)
-    filemenu.add_command(label="Save", accelerator="Ctrl-S", command=save_file)
-    filemenu.add_command(label="Save as...", accelerator="Ctrl-Shift-S", command=save_file_as)
-    filemenu.add_command(label="Run file", accelerator="Ctrl-R", command=run_file)
-    filemenu.add_command(label="Quit", accelerator="Ctrl-Q", command=confirm_quit)
+    filemenu.add_command(label="New", accelerator="Control-N", command=main)
+    filemenu.add_command(label="Open", accelerator="Control-O", command=open_file)
+    filemenu.add_command(label="Save", accelerator="Control-S", command=save_file)
+    filemenu.add_command(label="Save as...", accelerator="Control-Shift-S", command=save_file_as)
+    filemenu.add_command(label="Run file", accelerator="Control-R", command=run_file)
+    filemenu.add_command(label="Quit", accelerator="Control-Q", command=confirm_quit)
     
     menubar.add_cascade(label="File", menu=filemenu)
     
     editmenu = Menu(menubar, tearoff=0)
     
-    editmenu.add_command(label="Cut", accelerator="Ctrl-X", command=cut)
-    editmenu.add_command(label="Copy", accelerator="Ctrl-C", command=copy)
-    editmenu.add_command(label="Paste", accelerator="Ctrl-V", command=paste)
+    editmenu.add_command(label="Cut", accelerator="Control-X", command=cut)
+    editmenu.add_command(label="Copy", accelerator="Control-C", command=copy)
+    editmenu.add_command(label="Paste", accelerator="Control-V", command=paste)
     
     menubar.add_cascade(label="Edit", menu=editmenu)
     
     thememenu = Menu(menubar, tearoff=0)
     
+    viewmenu = Menu(menubar, tearoff=0)
+    
+    viewmenu.add_command(label="Fullscreen", accelerator="F11", command=toggle_fullscreen)
+    
+    menubar.add_cascade(label="View", menu=viewmenu)
+    
     thememenu.add_command(label="Dark Theme", command=darkTheme)
     thememenu.add_command(label="Light Theme", command=lightTheme)
     thememenu.add_command(label="Custom Theme", command=customTheme)
     
-    menubar.add_cascade(label="Themes", menu=thememenu)
+    viewmenu.add_cascade(label="Themes", menu=thememenu)
     
     root.config(menu=menubar)
     
