@@ -13,3 +13,9 @@ Make "main" executable and it is now installed portably! Just double-click to ru
 This is a portable build, so it works already! Just double-click "main" or "main.exe" when you want to run it. You guys have it easy :)
 ### For advanced users
 Go to [https://github.com/caarfken/PyEdit/actions](github.com/caarfken/PyEdit/actions) for the absolute latest release (Warning-very unstable!)
+
+
+
+## Known issues
+
+To run a program, you must save and reopen the file. If anyone knows how to fix this, please create a pull request with the fix.
