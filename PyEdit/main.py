@@ -6,6 +6,16 @@ import utils
 import subprocess
 
 
+def autoend(char):
+    t.insert("insert", char)
+    t.mark_set("insert", "insert-1c")
+
+def autoparen(event=None):
+    autoend(")")
+
+def autoquote(event=None):
+    autoend('"')
+
 def toggle_fullscreen(event=None):
     global fullscreen
     fullscreen = not fullscreen
@@ -19,13 +29,15 @@ def popup(event):
 
 def copy(event=None):
     root.event_generate("<Control-c>")
+
 def paste(event=None):
     root.event_generate("<Control-v>")
+
 def cut(event=None):
     root.event_generate("<Control-x>")
 
 
-def confirm_quit():
+def confirm_quit(event=None):
     if messagebox.askokcancel("Quit", "Do you want to quit? All unsaved work will be lost."):
         try:
             root.destroy()
@@ -107,6 +119,7 @@ def main(event=None):
     '''The main function'''
     # Initialize variables
     global fullscreen
+    global command
     name = ""
     fullscreen = False
     
@@ -136,6 +149,8 @@ def main(event=None):
     root.protocol("WM_DELETE_WINDOW", confirm_quit)
     
     # Keybindings
+    t.bind("<KeyRelease-parenleft>", autoparen)
+    t.bind("<KeyRelease-quotedbl>", autoquote)
     t.bind("<F11>", toggle_fullscreen)
     t.bind("<Control-s>", save_file)
     t.bind("<Control-S>", save_file_as)
