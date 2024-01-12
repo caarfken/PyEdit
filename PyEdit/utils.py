@@ -9,6 +9,7 @@ def get_save_as_dialog() -> TextIOWrapper:
 def save_file_as(contents):
     '''Writes to chosen file'''
     file = get_save_as_dialog()
+    file.seek(0)
     file.write(contents)
     file.close()
 def get_open_dialog():
@@ -20,5 +21,6 @@ def open_file():
     return cont, file
 def save_file(t, file):
     contents = t.get('1.0', END)
+    file.seek(0)
     file.write(contents)
     file.close()
