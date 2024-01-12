@@ -4,6 +4,7 @@ import sys
 from tkinter import messagebox
 import utils
 import subprocess
+import permissionchanger
 
 
 def autoend(char):
@@ -115,6 +116,10 @@ def customTheme(event=None):
     file = utils.get_open_dialog()
     themeChanger(file.name)
 
+def changePerms(event=None):
+    global file
+    permissionchanger.changePermissions(file, root)
+
 def main(event=None):
     '''The main function'''
     # Initialize variables
@@ -197,6 +202,12 @@ def main(event=None):
     thememenu.add_command(label="Custom Theme", command=customTheme)
     
     viewmenu.add_cascade(label="Themes", menu=thememenu)
+    
+    toolsmenu = Menu(menubar, tearoff=0)
+    
+    toolsmenu.add_command(label="Change Permissions", command=changePerms)
+    
+    menubar.add_cascade(label="Tools", menu=toolsmenu)
     
     root.config(menu=menubar)
     
