@@ -54,7 +54,7 @@ def find_data_file(filename):
     else:
         # The application is not frozen
         # Change this bit to match where you store your data files:
-        datadir = os.path.dirname("./")
+        datadir = os.path.dirname("./data/")
     return os.path.join(datadir, filename)
 
 def open_file(event=None):

@@ -45,7 +45,7 @@ jobs:
           brew install tcl-tk
       - name: Compile
         run: |
-          cd PyEdit && cxfreeze -c main.py --target-dir dist --include-files=activeTheme.conf,darkTheme.csv,lightTheme.csv,langs.csv && mkdir build && mv dist build
+          cd PyEdit && cxfreeze -c main.py --target-dir dist --include-files=data/activeTheme.conf,data/darkTheme.csv,data/lightTheme.csv,data/langs.csv && mkdir build && mv dist build
   
       # Uploads artifacts
       - name: Upload Artifacts
