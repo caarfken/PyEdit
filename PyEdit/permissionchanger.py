@@ -5,7 +5,7 @@ import oschmod
 convert = {
     "add" : "+",
     "remove" : "-",
-    "Everyone" : "o",
+    "Everyone else" : "o",
     "Group" : "g",
     "Owner" : "a",
     "Read" : "r",
@@ -39,7 +39,7 @@ def changePermissions(file, parent):
     targets = [
         "Owner",
         "Group",
-        "Everyone"
+        "Everyone else"
     ]
     global toChange
     toChange = file
