@@ -5,9 +5,9 @@ import oschmod
 convert = {
     "add" : "+",
     "remove" : "-",
-    "Everyone" : "a",
+    "Everyone" : "o",
     "Group" : "g",
-    "Owner" : "o",
+    "Owner" : "a",
     "Read" : "r",
     "Write" : "w",
     "Execute" : "e"
