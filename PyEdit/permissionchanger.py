@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import oschmod
 
 convert = {
@@ -18,10 +19,12 @@ convert = {
 def add(event=None):
     newPerms = f"{convert[target.get()]}{convert['add']}{convert[perm.get()]}"
     oschmod.set_mode(toChange.name, newPerms)
+    messagebox.showinfo("Success!", "Successfully changed permissions.")
     
 def remove(event=None):
     newPerms = f"{convert[target.get()]}{convert['remove']}{convert[perm.get()]}"
     oschmod.set_mode(toChange.name, newPerms)
+    messagebox.showinfo("Success!", "Successfully changed permissions.")
 
 
 
