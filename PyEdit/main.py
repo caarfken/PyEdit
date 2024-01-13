@@ -16,7 +16,8 @@ def autoparen(event=None):
 
 def autoquote(event=None):
     autoend('"')
-
+def autosinglequote(event=None):
+    autoend("'")
 def toggle_fullscreen(event=None):
     global fullscreen
     fullscreen = not fullscreen
@@ -158,6 +159,7 @@ def main(event=None):
     # Keybindings
     t.bind("<KeyRelease-parenleft>", autoparen)
     t.bind("<KeyRelease-quotedbl>", autoquote)
+    t.bind("<KeyRelease-quoteright>", autosinglequote)
     t.bind("<F11>", toggle_fullscreen)
     t.bind("<Control-s>", save_file)
     t.bind("<Control-S>", save_file_as)
