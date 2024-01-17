@@ -9,9 +9,7 @@ from tklinenums import TkLineNumbers
 
 
 
-highlightWords = {'if': 'green',
-                  'else': 'red'
-                  }
+highlightWords = {}
 
 def highlighter(event):
     '''the highlight function, called when a Key-press event occurs'''
@@ -150,6 +148,7 @@ def main(event=None):
     # Initialize variables
     global fullscreen
     global command
+    global highlightWords
     name = ""
     fullscreen = False
     
@@ -165,6 +164,13 @@ def main(event=None):
     langsFile = open(find_data_file("langs.csv"))
     global langs
     langs = langsFile.readlines()
+    
+    # Setup text highlighting
+    highlightFile = open(find_data_file("textHighlighting.csv"))
+    lines = highlightFile.readlines()
+    for line in lines:
+        name, color = line.split(",")
+        highlightWords[name.strip()] = color.strip()
     
     
     # Start Tkinter
