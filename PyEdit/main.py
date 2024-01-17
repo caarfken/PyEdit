@@ -156,8 +156,12 @@ def main(event=None):
     # Get theme
     themeName = open(find_data_file("activeTheme.conf"))
     global theme
+    global dark
+    dark = False
     theme = open(themeName.read())
     menuColor, edColor, textColor = theme.read().split(",")
+    if menuColor == "#333333":
+        dark = True
     
     
     # Setup extensions
@@ -166,7 +170,10 @@ def main(event=None):
     langs = langsFile.readlines()
     
     # Setup text highlighting
-    highlightFile = open(find_data_file("textHighlighting.csv"))
+    if dark:
+        highlightFile = open(find_data_file("textHighlightingDark.csv"))
+    else:
+        highlightFile = open(find_data_file("textHighlightingLight.csv"))
     lines = highlightFile.readlines()
     for line in lines:
         name, color = line.split(",")
