@@ -8,9 +8,9 @@ PyEdit is a simple Tkinter-based text editor designed for programming.
 
 Go to [github.com/caarfken/PyEdit/releases/latest](https://github.com/caarfken/PyEdit/releases/latest) and click on the file for your operating system (for example, Linux Build) and wait for the download to complete. Unzip the downloaded files into a new folder and enter the folder.
 ### Linux
-Make "main" executable and it is now installed portably! Just double-click to run.
+Make "main" executable and it is now ready to run! Just double-click to start.
 ### Mac & Windows
-This is a portable build, so it works already! Just double-click "main" or "main.exe" when you want to run it. You guys have it easy :)
+This is a portable build, so it works already! Just double-click "main" or "main.exe" when you want to run it.
 ### For advanced users
 Go to [https://github.com/caarfken/PyEdit/actions](github.com/caarfken/PyEdit/actions) for the absolute latest release (Warning-very unstable!)
 
@@ -18,4 +18,4 @@ Go to [https://github.com/caarfken/PyEdit/actions](github.com/caarfken/PyEdit/ac
 
 ## Known issues
 
-To run a program, you must save and reopen the file. If anyone knows how to fix this, please create a pull request with the fix.
+To apply most actions to a file, you must save and reopen the file. If anyone knows how to fix this, please open a pull request with the fix.
