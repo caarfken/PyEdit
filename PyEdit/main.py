@@ -5,7 +5,13 @@ from tkinter import messagebox
 import utils
 import subprocess
 import permissionchanger
+from tklinenums import TkLineNumbers
 
+
+
+def on_modified(event):
+    t.edit_modified(False) # reset the internal modified flag
+    root.after_idle(linenums.redraw) # update line numbers
 
 def autoend(char):
     t.insert("insert", char)
@@ -150,7 +156,7 @@ def main(event=None):
     # Setup text input
     global t
     t = Text(root, background=edColor, foreground=textColor, insertbackground=textColor)
-    t.pack(expand=True, fill=BOTH)
+    t.pack(expand=True, side="right")
     
     
     # Handle window being closed
@@ -222,6 +228,12 @@ def main(event=None):
     popupmenu.add_command(label="Paste", command=paste)
     
     root.bind("<Button-3>", popup)
+    
+    global linenums
+    linenums = TkLineNumbers(root, t, justify="left", colors=(textColor, menuColor))
+    linenums.pack(fill="y", side="left")
+    
+    t.bind("<<Modified>>", on_modified, add=True)
     
     # Set title
     root.title("PyEdit")
