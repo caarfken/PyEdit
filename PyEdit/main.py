@@ -9,6 +9,24 @@ from tklinenums import TkLineNumbers
 
 
 
+highlightWords = {'if': 'green',
+                  'else': 'red'
+                  }
+
+def highlighter(event):
+    '''the highlight function, called when a Key-press event occurs'''
+    for k,v in highlightWords.items(): # iterate over dict
+        startIndex = '1.0'
+        while True:
+            startIndex = t.search(k, startIndex, END) # search for occurence of k
+            if startIndex:
+                endIndex = t.index('%s+%dc' % (startIndex, (len(k)))) # find end of k
+                t.tag_add(k, startIndex, endIndex) # add tag to k
+                t.tag_config(k, foreground=v)      # and color it with v
+                startIndex = endIndex # reset startIndex to continue searching
+            else:
+                break
+
 def on_modified(event):
     t.edit_modified(False) # reset the internal modified flag
     root.after_idle(linenums.redraw) # update line numbers
@@ -163,6 +181,7 @@ def main(event=None):
     root.protocol("WM_DELETE_WINDOW", confirm_quit)
     
     # Keybindings
+    t.bind("<Key>", highlighter)
     t.bind("<KeyRelease-parenleft>", autoparen)
     t.bind("<KeyRelease-quotedbl>", autoquote)
     t.bind("<KeyRelease-quoteright>", autosinglequote)
