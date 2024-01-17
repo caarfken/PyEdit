@@ -30,6 +30,7 @@ jobs:
           python -m pip install -r PyEdit/requirements.txt
       - name: Test with pytest
         run: |
+          cd PyEdit
           export DISPLAY=:99
           Xvfb :99 &
-          python PyEdit/main.py
+          python main.py
