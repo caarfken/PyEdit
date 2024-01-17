@@ -156,7 +156,7 @@ def main(event=None):
     # Setup text input
     global t
     t = Text(root, background=edColor, foreground=textColor, insertbackground=textColor)
-    t.pack(expand=True, side="right")
+    t.pack(expand=True, side="right", fill=BOTH)
     
     
     # Handle window being closed
