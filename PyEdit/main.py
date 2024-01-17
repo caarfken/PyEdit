@@ -8,7 +8,6 @@ import permissionchanger
 from tklinenums import TkLineNumbers
 
 
-
 highlightWords = {}
 
 def highlighter(event):
@@ -68,16 +67,6 @@ def confirm_quit(event=None):
         except:
             sys.exit()
 
-def find_data_file(filename):
-    '''This finds a data file if PyEdit has been frozen with cx_Freeze'''
-    if getattr(sys, "frozen", False):
-        # The application is frozen
-        datadir = os.path.dirname(sys.executable)
-    else:
-        # The application is not frozen
-        # Change this bit to match where you store your data files:
-        datadir = os.path.dirname("./")
-    return os.path.join(datadir, filename)
 
 def open_file(event=None):
         '''This opens a file in the editor'''
@@ -124,16 +113,16 @@ def run_file(event=None):
 
 def themeChanger(theme):
     '''This changes the theme. Called by darkTheme, lightTheme, and customTheme'''
-    activeTheme = open(find_data_file("activeTheme.conf"), "w")
+    activeTheme = open(utils.find_data_file("activeTheme.conf"), "w")
     activeTheme.write(theme)
     activeTheme.close()
     messagebox.showinfo("Theme Change", "Theme succesfully changed. This will not take effect until you restart the application")
 
 def darkTheme(event=None):
-    themeChanger(find_data_file("darkTheme.csv"))
+    themeChanger(utils.find_data_file("darkTheme.csv"))
 
 def lightTheme(event=None):
-    themeChanger(find_data_file("lightTheme.csv"))
+    themeChanger(utils.find_data_file("lightTheme.csv"))
 
 def customTheme(event=None):
     file = utils.get_open_dialog()
@@ -154,7 +143,7 @@ def main(event=None):
     
     
     # Get theme
-    themeName = open(find_data_file("activeTheme.conf"))
+    themeName = open(utils.find_data_file("activeTheme.conf"))
     global theme
     global dark
     dark = False
@@ -165,15 +154,15 @@ def main(event=None):
     
     
     # Setup extensions
-    langsFile = open(find_data_file("langs.csv"))
+    langsFile = open(utils.find_data_file("langs.csv"))
     global langs
     langs = langsFile.readlines()
     
     # Setup text highlighting
     if dark:
-        highlightFile = open(find_data_file("textHighlightingDark.csv"))
+        highlightFile = open(utils.find_data_file("textHighlightingDark.csv"))
     else:
-        highlightFile = open(find_data_file("textHighlightingLight.csv"))
+        highlightFile = open(utils.find_data_file("textHighlightingLight.csv"))
     lines = highlightFile.readlines()
     for line in lines:
         name, color = line.split(",")
